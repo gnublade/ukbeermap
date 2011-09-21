@@ -1,0 +1,22 @@
+application: ukbeermap
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+
+- url: /css
+  static_dir: css
+
+- url: /img
+  static_dir: img
+
+- url: /js
+  static_dir: js
+
+- url: /(.*\.(txt|png|ico))
+  static_files: \1
+  upload: (.*\.(txt|png|ico))
+
+- url: /.*
+  script: main.py
