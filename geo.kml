@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<NetworkLinkControl>
+  <minRefreshPeriod>900</minRefreshPeriod>
+</NetworkLinkControl>
+<Document>
+  {% for tweet in tweets %}{% if tweet.location %}
+  <Placemark>
+    <styleUrl>#{{ tweet.message_id }}</styleUrl>
+    <name>{{tweet.username}}</name>
+    <description>{{ tweet.message|escape }}</description>
+    <Point>
+      <coordinates>{{ tweet.location.lon }},{{ tweet.location.lat }}</coordinates>
+    </Point>
+  </Placemark>
+  {% endif %}{% endfor %}
+</Document>
+</kml>

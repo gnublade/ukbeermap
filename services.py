@@ -46,5 +46,6 @@ def store_tweet(data):
     )
     if data['geo'] and data['geo']['type'] == 'Point':
         logger.debug("Adding location: %s", data['geo']['coordinates'])
-        tweet.location = "%s,%s" % tuple(data['geo']['coordinates'])
+        lat,lon = data['geo']['coordinates']
+        tweet.location = "%s,%s" % (lat,lon)
     tweet.put()

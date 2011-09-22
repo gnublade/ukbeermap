@@ -13,35 +13,23 @@
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
+  <style type="text/css">
+    html { height: 100% }
+    body { height: 100%; margin: 0; padding: 0 }
+    #map_canvas { height: 100% }
+  </style>
+
   <!-- CSS concatenated and minified via ant build script-->
   <link rel="stylesheet" href="css/style.css">
   <!-- end CSS-->
 
   <script src="js/libs/modernizr-2.0.6.min.js"></script>
-</head>
 
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+</head>
 <body>
 
-  <div id="container">
-    <header>
-        <hgroup>
-          <h1>#ukbeer Map</h1>
-          <h2>Beer mentions from around the UK.</h2>
-        </hgroup>
-    </header>
-    <div id="main" role="main">
-        {% for tweet in tweets.results %}
-        <img src="{{ tweet.profile_image_url }}" />
-        <h2>{{ tweet.from_user }}</h2>
-        <p>{{ tweet.text }}</p>
-        <p><time datetime="{{ tweet.created_at }}">{{ tweet.created_at }}</time></p>
-        {% endfor %}
-    </div>
-    <footer>
-
-    </footer>
-  </div> <!--! end of #container -->
-
+  <div id="map_canvas" style="width:100%; height:100%"></div>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
@@ -52,6 +40,22 @@
   <script defer src="js/script.js"></script>
   <!-- end scripts-->
 
+  <script type="text/javascript">
+    function initialize() {
+      if (Modernizr.geolocation) {
+        var map = new google.maps.Map(document.getElementById("map_canvas"), {
+          zoom: 10,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        var kmllayer = new google.maps.KmlLayer("http://ukbeermap.appspot.com/kml");
+        kmllayer.setMap(map);
+        navigator.geolocation.getCurrentPosition(function(position) {
+          map.setCenter(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
+        });
+      }
+    }
+    $(document).ready(initialize);
+  </script>
 
   <!--[if lt IE 7 ]>
     <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>

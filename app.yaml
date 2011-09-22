@@ -28,3 +28,15 @@ handlers:
 builtins:
 - datastore_admin: on
 - deferred: on
+
+skip_files:
+- ^(.*/)?app\.yaml
+- ^(.*/)?app\.yml
+- ^(.*/)?index\.yaml
+- ^(.*/)?index\.yml
+- ^(.*/)?#.*#
+- ^(.*/)?.*~
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?\..*
+- ^(.*/)?build*
+- ^(.*/)?test*

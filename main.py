@@ -14,6 +14,7 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 
 import twitter
 
+from models import Tweet
 from services import FetchTweets
 
 
@@ -24,8 +25,19 @@ class MainHandler(webapp.RequestHandler):
             'tweets': tweets,
         }))
 
+
+class GeoKMLHandler(webapp.RequestHandler):
+    def get(self):
+        tweets = Tweet.all()
+        self.response.headers['Content-Type'] = (
+                'application/vnd.google-earth.kml+xml')
+        self.response.out.write(template.render('geo.kml', {
+            'tweets': tweets,
+        }))
+
 application = webapp.WSGIApplication([
     ('/services/fetch_tweets', FetchTweets),
+    ('/kml', GeoKMLHandler),
     ('/', MainHandler),
 ], debug=True)
 
