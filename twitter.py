@@ -1,5 +1,6 @@
 import base64
 import urllib
+import logging
 
 from google.appengine.api import urlfetch
 from google.appengine.api import memcache
@@ -47,11 +48,13 @@ def get_twitter_replies(person, last_id):
 
 
 def get_twitter_search(query, last_id):
-    if last_id != '1':
-        url = "http://search.twitter.com/search.json?q=" + query + "&rpp=100&since_id=" + last_id
+    url = "http://search.twitter.com/search.json"
+    if last_id:
+        url += "?q=%s&rpp=100&since_id=%s" % (query, last_id)
     else:
-        url = "http://search.twitter.com/search.json?q=" + query + "&rpp=100"
+        url += "?q=%s&rpp=100" % query
         
+    logging.debug(url)
     messages = get_from_twitter("default", url)
     return messages
 
