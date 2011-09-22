@@ -39,7 +39,7 @@ application = webapp.WSGIApplication([
     ('/services/fetch_tweets', FetchTweets),
     ('/kml', GeoKMLHandler),
     ('/', MainHandler),
-], debug=True)
+], debug=False)
 
 def main():
     logging.getLogger().setLevel(logging.DEBUG)
