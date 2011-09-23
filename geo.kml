@@ -5,6 +5,34 @@
 </NetworkLinkControl>
 <Document>
   {% for tweet in tweets %}{% if tweet.location %}
+  <Style id="normal_{{tweet.message_id}}">
+    <IconStyle>
+      <scale>1</scale>
+      <Icon>
+        <href>{{ tweet.profile_image_url }}</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="highlight_{{tweet.message_id}}">
+    <IconStyle>
+      <scale>2</scale>
+      <Icon>
+        <href>{{item.tweetpic}}</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <StyleMap id="{{tweet.message_id}}">
+    <Pair>
+      <key>normal</key>
+      <styleUrl>#normal_{{ tweet.message_id }}</styleUrl>
+    </Pair>
+    <Pair>
+      <key>highlight</key>
+      <styleUrl>#highlight_{{ tweet.message_id }}</styleUrl>
+    </Pair>
+  </StyleMap>
+  {% endif %}{% endfor %}
+  {% for tweet in tweets %}{% if tweet.location %}
   <Placemark>
     <styleUrl>#{{ tweet.message_id }}</styleUrl>
     <name>{{tweet.username}}</name>
