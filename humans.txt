@@ -7,8 +7,12 @@
   Twitter: @gnublade
   Location: London, UK
 
+  Moral support and mobile hotspot: Alecs Geuder
+  Twitter: @tschaggalecs
+  Location: London, UK
+
 /* THANKS */
-  Names (& URL): 
+  Names (& URL): Beer and Ale everywhere
 
 /* SITE */
   Standards: HTML5, CSS3
